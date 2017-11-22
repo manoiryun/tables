@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script src="js/angular.min.js"></script>
+		<script src="js/page.js"></script>
+		<script type="text/javascript">
+			var app = angular.module('myApp', ['pages']);
+
+			app.factory('mydata', function() {
+				return {
+					$http: function() {
+						return [{
+							id: 1,
+							loginName: 'admin1',
+							userName: '张数',
+							state: '正常',
+							qq: '849627',
+							nextName: '李山河',
+							oldM: '12%',
+							lilv: '14%',
+							daili: '13%',
+							fenxian: '12%',
+							money: 1000,
+							coldmoney: 0,
+							flag: false
+						}, {
+							id: 2,
+							loginName: 'admin2',
+							userName: '张数',
+							state: '正常',
+							qq: '849627',
+							nextName: '李山河',
+							oldM: '12%',
+							lilv: '14%',
+							daili: '13%',
+							fenxian: '12%',
+							money: 1000,
+							coldmoney: 0,
+							flag: false
+						}, {
+							id: 3,
+							loginName: 'admin3',
+							userName: '注册',
+							state: '正常',
+							qq: '849627',
+							nextName: '李山河',
+							oldM: '12%',
+							lilv: '14%',
+							daili: '13%',
+							fenxian: '12%',
+							money: 1000,
+							coldmoney: 0,
+							flag: false
+						}, {
+							id: 4,
+							loginName: 'admin4',
+							userName: '士',
+							state: '正常',
+							qq: '849627',
+							nextName: '李山河',
+							oldM: '12%',
+							lilv: '14%',
+							daili: '13%',
+							fenxian: '12%',
+							money: 1000,
+							coldmoney: 0,
+							flag: false
+						}, {
+							id: 5,
+							loginName: 'admin5',
+							userName: '王太热',
+							state: '正常',
+							qq: '849627',
+							nextName: '李山河',
+							oldM: '12%',
+							lilv: '14%',
+							daili: '13%',
+							fenxian: '12%',
+							money: 1000,
+							coldmoney: 0,
+							flag: false
+						}, {
+							id: 6,
+							loginName: 'admin6',
+							userName: '热',
+							state: '正常',
+							qq: '849627',
+							nextName: '李山河',
+							oldM: '12%',
+							lilv: '14%',
+							daili: '13%',
+							fenxian: '12%',
+							money: 1000,
+							coldmoney: 0,
+							flag: false
+						}, {
+							id: 7,
+							loginName: 'admin7',
+							userName: '王结合',
+							state: '正常',
+							qq: '849627',
+							nextName: '李山河',
+							oldM: '12%',
+							lilv: '14%',
+							daili: '13%',
+							fenxian: '12%',
+							money: 1000,
+							coldmoney: 0,
+							flag: false
+						}, {
+							id: 8,
+							loginName: 'admin8',
+							userName: '烦得很昭',
+							state: '正常',
+							qq: '849627',
+							nextName: '李山河',
+							oldM: '12%',
+							lilv: '14%',
+							daili: '13%',
+							fenxian: '12%',
+							money: 1000,
+							coldmoney: 0,
+							flag: false
+						}, {
+							id: 9,
+							loginName: 'admin9',
+							userName: '刚发的',
+							state: '正常',
+							qq: '849627',
+							nextName: '李河',
+							oldM: '12%',
+							lilv: '14%',
+							daili: '13%',
+							fenxian: '12%',
+							money: 1000,
+							coldmoney: 0,
+							flag: false
+						}, {
+							id: 10,
+							loginName: 'admin10',
+							userName: '发顺丰昭',
+							state: '正常',
+							qq: '849627',
+							nextName: '李山',
+							oldM: '12%',
+							lilv: '14%',
+							daili: '13%',
+							fenxian: '12%',
+							money: 1000,
+							coldmoney: 0,
+							flag: false
+						}, {
+							id: 11,
+							loginName: 'admin11',
+							userName: '萨达',
+							state: '正常',
+							qq: '849627',
+							nextName: '山河',
+							oldM: '12%',
+							lilv: '14%',
+							daili: '13%',
+							fenxian: '12%',
+							money: 1000,
+							coldmoney: 0,
+							flag: false
+						}, {
+							id: 12,
+							loginName: 'admin12',
+							userName: '萨达asd ',
+							state: '正常',
+							qq: '849627',
+							nextName: '李河',
+							oldM: '12%',
+							lilv: '14%',
+							daili: '13%',
+							fenxian: '12%',
+							money: 1000,
+							coldmoney: 0,
+							flag: false
+						}];
+					}
+				}
+			})
+
+			app.controller('myController', function($scope, $rootScope, $filter, mydata) {
+				$scope.data = mydata.$http();
+
+				$rootScope.length = mydata.$http().length; //数据的长度
+				$scope.num = 5; //每页有多少数据
+				$rootScope.pagess = Math.ceil($rootScope.length / $scope.num);
+				$scope.change = false;
+
+				$scope.datalist = $scope.data;
+				//分页
+				$rootScope.$on('pages', function(e, data) {
+					data(1, $rootScope.pagess)
+					//模糊搜索
+					$scope.searchFn = function() {
+						$scope.datalist = $filter('filter')($scope.data, {
+							loginName: $scope.user,
+							userName: $scope.name,
+							state: $scope.state,
+							qq: $scope.qq
+						})
+						$scope.newN = 0;
+						$rootScope.pagess = Math.ceil($scope.datalist.length / $scope.num);
+						console.log($rootScope.pagess)
+						data(1, $rootScope.pagess)
+					}
+					//删除操作
+					$scope.removeFn = function(item) {
+						var arr = []
+						for(var i = 0; i < $scope.datalist.length; i++) {
+							if($scope.datalist[i].id !== item.id) {
+								arr.push($scope.datalist[i]);
+							}
+						}
+						$scope.datalist = arr;
+						/*$rootScope.pagess = Math.ceil($scope.datalist.length / $scope.num);
+						data(1, $rootScope.pagess)*/
+					}
+					//修改操作
+					$scope.changeFn = function(item) {
+						console.log(item)
+					}
+					//全选
+					$scope.allSe = function() {
+						$scope.datalist.forEach(function(v, i) {
+							v.flag = true;
+						})
+						$rootScope.pagess = Math.ceil($scope.datalist.length / $scope.num);
+						data(1, $rootScope.pagess)
+					}
+					//反选
+					$scope.noAll = function() {
+						$scope.datalist.forEach(function(v, i) {
+							v.flag = !v.flag;
+						})
+						$rootScope.pagess = Math.ceil($scope.datalist.length / $scope.num);
+						data(1, $rootScope.pagess)
+					}
+					//删除选中
+					$scope.removeAll = function() {
+						var arr = [];
+						$scope.datalist.forEach(function(v, i) {
+							if(!v.flag) {
+								arr.push(v);
+							}
+						})
+						$scope.datalist = arr;
+						$rootScope.pagess = Math.ceil($scope.datalist.length / $scope.num);
+						data(1, $rootScope.pagess)
+					}
+				})
+				
+				
+
+			})
+		</script>
+	</head>
+
+	<body ng-controller='myController'>
+		<div class="wrap">
+			<div class='search'>
+				登录名：<input type="text" ng-model='user' /> 真实姓名：
+				<input type="text" ng-model='name' /> 状态：
+				<input type="text" ng-model='state' /> qq：
+				<input type="text" ng-model='qq' />
+				<button ng-click="searchFn()">查询</button>
+			</div>
+			<table border="1" cellspacing="" cellpadding="15">
+				<tr>
+					<th>选择</th>
+					<th>登录名</th>
+					<th>真实姓名</th>
+					<th>状态</th>
+					<th>QQ</th>
+					<th>上级</th>
+					<th>原定费率</th>
+					<th>平台费率</th>
+					<th>代理费率</th>
+					<th>分销费率</th>
+					<th>可用余额</th>
+					<th>冻结余额</th>
+					<th class='last'>操作</th>
+				</tr>
+				<tr ng-repeat='item in datalist | limitTo:num:newN'>
+					<td><input type="checkbox" ng-model='item.flag' /></td>
+					<td>{{item.loginName}}</td>
+					<td>{{item.userName}}</td>
+					<td>{{item.state}}</td>
+					<td>{{item.qq}}</td>
+					<td>{{item.nextName}}</td>
+					<td>{{item.oldM}}</td>
+					<td>{{item.lilv}}</td>
+					<td>{{item.daili}}</td>
+					<td>{{item.fenxian}}</td>
+					<td>{{item.money | currency :''}}元</td>
+					<td>{{item.coldmoney | currency:''}}元</td>
+					<td class='nLast'>
+						<span>查找</span>
+						<span ng-click='changeFn(item)' ng-model='change'>修改</span>
+						<span ng-click='removeFn(item)'>删除</span>
+					</td>
+				</tr>
+
+			</table>
+			<div class='bottomOp'>
+				<div class='leftOperate'>
+					<span ng-click='allSe()'>全选</span> / <span ng-click='noAll()'>反选</span>
+					<input type="button" ng-click='removeAll()' value="删除" />
+				</div>
+				<div class='rightOperate'>
+					<p>共{{datalist.length}}条记录</p>
+					<div pages></div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,75 @@
+.wrap {
+	width: 100%;
+	height: 100%;
+}
+
+table {
+	width: 100%;
+}
+
+table .last {
+	width: 150px;
+	text-align: center;
+}
+
+.search {
+	width: 100%;
+	height: 45px;
+	background: #EFF2F7;
+	line-height: 45px;
+}
+
+table tr td {
+	text-align: center;
+}
+
+table tr td span {
+	padding: 5px 5px;
+}
+
+.wrap .bottomOp {
+	width: 100%;
+	height: 45px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.leftOperate {
+	padding-left: 20px;
+}
+
+.rightOperate {
+	padding-right: 20px;
+	display: flex;
+	align-items: center;
+}
+
+.pages input {
+	height: 26px;
+	width: 50px;
+}
+
+.pages input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none !important;
+	margin: 0;
+}
+
+.pages button {
+	height: 30px;
+}
+
+.pages span {
+	display: inline-block;
+	line-height: 30px;
+	height: 30px;
+	padding: 0px 10px;
+	margin: 0 10px;
+	border: 1px solid #ccc;
+	cursor: pointer;
+}
+
+.nowPage {
+	background: #f60;
+}
